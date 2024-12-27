@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add custom styles below */
+@layer utilities {
+  .bg-gradient-custom {
+    background: linear-gradient(to bottom right, #6B21A8, #2563EB, #1E40AF);
+  }
+
+  /* Smooth scrolling behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Scroll offset for fixed headers */
+  section {
+    scroll-margin-top: 80px; /* Adjust based on your header height */
+  }
+
+  /* Customize scrollbar (optional) */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #1e1e2f; /* Dark background for scrollbar track */
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #0d0d0e; /* Matches your gradient start color */
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0d0d0e; /* Hover color for scrollbar */
+  }
+}
+
+/* Additional base styles */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif; /* Add your desired font */
+  background-color: #f3f4f6; /* Light gray background */
+  color: #111827; /* Dark text color */
+}
+
+a {
+  text-decoration: none;
+  color: inherit; /* Keeps link colors consistent with text */
+}
+
+button {
+  cursor: pointer;
+}
+
