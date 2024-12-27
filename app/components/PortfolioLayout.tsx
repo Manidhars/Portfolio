@@ -287,97 +287,124 @@ This project showcased expertise in cloud-based data integration, pipeline desig
           </div>
           </AutoScroll>
         </div>
-{/* Right Container: Skills */}
+        {/* Right Container: Skills */}
 <div
-  className="row-span-4 col-span-1 bg-gray-700 p-6 bg-opacity-30 rounded-lg shadow-md overflow-y-auto"
-  
+  className="row-span-4 col-span-1 lg:col-span-1 bg-gray-700 bg-opacity-30 p-6 rounded-lg shadow-md overflow-y-auto"
 >
   <h3 className="text-xl font-bold mb-4 bg-opacity-70 text-white">Skills</h3>
   <AutoScroll speed={30}>
-    {skills.map((category, index) => (
-      <div key={index} className="mb-6">
-        <h4 className="text-lg font-semibold text-gray-200 mb-3">
-          {category.category}
-        </h4>
-        <div className="grid grid-cols-4 gap-4">
-          {category.skills.map((skill, skillIndex) => (
-            <div key={skillIndex} className="flex flex-col items-center justify-center">
+    <div className="flex flex-wrap gap-4">
+      {skills.map((category, index) => (
+        <div key={index} className="w-full">
+          {/* Category Title */}
+          <h4 className="text-lg font-semibold text-gray-200 mb-3">
+            {category.category}
+          </h4>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {category.skills.map((skill, skillIndex) => (
               <div
-                className="flex items-center justify-center bg-gray-800 h-16 w-16 rounded-full shadow"
-                style={{
-                  borderRadius: "50%",
-                  backgroundColor: "#333",
-                }}
+                key={skillIndex}
+                className="flex flex-col items-center justify-center text-center"
               >
-                <img
-                  src={skill.logo.startsWith("http") ? skill.logo : `/icons/${skill.logo}`}
-                  alt={`Icon for ${skill.name}`}
-                  className="h-10 w-10 object-contain"
-                  loading="lazy"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = "/icons/default.png";
-                  }}
-                />
+                {/* Skill Icon */}
+                <div
+                  className="flex items-center justify-center bg-gray-800 bg-opacity-30 h-16 w-16 rounded-full shadow"
+                
+                >
+                  <img
+                    src={skill.logo.startsWith("http") ? skill.logo : `/icons/${skill.logo}`}
+                    alt={`Icon for ${skill.name}`}
+                    className="h-10 w-10 object-contain"
+                    loading="lazy"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = "/icons/default.png"; // Fallback
+                    }}
+                  />
+                </div>
+                {/* Skill Name */}
+                <span className="text-sm font-medium text-gray-300 mt-2">
+                  {skill.name}
+                </span>
               </div>
-              <span className="text-sm font-medium text-gray-300 mt-2 text-center">
-                {skill.name}
-              </span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    ))}
+      ))}
+    </div>
   </AutoScroll>
 </div>
-      {/* Bottom Container:  Projects */}
+
+{/* Bottom Container: Projects */}
+<div
+  className="row-span-2 col-span-2 lg:col-span-2 bg-gray-700 p-4 bg-opacity-30 rounded-lg shadow-md overflow-y-auto"
+>
+  <h3 className="text-xl font-bold mb-4 bg-opacity-70 text-white">Projects</h3>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {Projects.map((project) => (
       <div
-        className="row-span-2 col-span-2 bg-gray-700 p-4 bg-opacity-30 rounded-lg shadow-md overflow-y-hidden"
-        
+        key={project.id}
+        className="bg-gray-800 text-white rounded-lg shadow p-3"
+        style={{
+          borderRadius: "10px",
+        }}
       >
-        <h3 className="text-xl font-bold mb-0 bg-opacity-70 text-white"> Projects</h3>
-        <HorizontalAutoScroll speed={50}>
-        <div className="flex flex-nowrap gap-4 justify-center md:justify-start">
-          {Projects.map((project) => (
-            <div
-              key={project.id}
-              className="min-w-[300px] bg-gray-800 text-white rounded-lg shadow p-4"
-              style={{
-                padding: "15px",
-                borderRadius: "10px",
-                
-              }}
-            >
-              <h4 className="text-lg font-bold mb-2">
-              <span style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{project.title}
-              </span>
-              </h4>
-              <p className="text-sm text-gray-300">
-              <span style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{project.description}
-              </span>
-              </p>
-              <p 
-              className="text-yellow-400 text-sm font-medium mb-2">   
-              <span style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>Tools: {project.tools.join(", ")}
-              </span>
-              </p>
-              <button
-                onClick={() => openModal(project)}
-                className="bg-blue-500 px-4 py-2 rounded-md font-bold"
-                style={{
-                  backgroundColor: "#1e90ff",
-                  padding: "6px 12px",
-                  fontSize: "0.8rem",
-                  borderRadius: "6px",
-                }}
-              >
-                View Details
-              </button>
-            </div>
-          ))}
-        </div>
-        </HorizontalAutoScroll>
+        {/* Project Title */}
+        <h4 className="text-md font-bold mb-1">
+          <span
+            style={{
+              display: "block",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {project.title}
+          </span>
+        </h4>
+
+        {/* Project Description */}
+        <p className="text-sm text-gray-300 mb-2">
+          <span
+            style={{
+              display: "block",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {project.description}
+          </span>
+        </p>
+
+        {/* Tools Used */}
+        <p className="text-yellow-400 text-xs font-medium mb-3">
+          <span
+            style={{
+              display: "block",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+              Tools: {project.tools.join(", ")}
+          </span>
+        </p>
+
+        {/* View Details Button */}
+        <button
+          onClick={() => openModal(project)}
+          className="bg-blue-500 px-3 py-1 text-sm rounded-md font-semibold"
+          style={{
+            backgroundColor: "#1e90ff",
+          }}
+        >
+          View Details
+        </button>
       </div>
+    ))}
+  </div>
+</div>
       {/* Modal for Project Details */}
         {modalContent && (
           <div
@@ -620,92 +647,113 @@ This role demonstrated expertise in supply chain automation, forecasting, and op
         </div>
         </AutoScroll>
       </div>
-
       {/* Right Container: Skills */}
-      <div
-  className=" row-span-4 col-span-1 bg-gray-700 bg-opacity-30 p-6 rounded-lg shadow-md overflow-y-auto"
-  
-    >
-      <h3 className="text-xl font-bold mb-4 bg-opacity-70 text-white">Skills</h3>
-      <AutoScroll speed={30}>
-      <div className="grid grid-cols-4 gap-4">
-        {managementTools.map((tool, index) => (
-          <div key={index} className="flex flex-col items-center">
-            {/* Circle container for the logo */}
-            <div
-              className="bg-gray-800 flex items-center justify-center h-16 w-16 rounded-full shadow"
-              
-            >
-              <img
-                src={tool.logo.startsWith("http") ? tool.logo : `/icons/${tool.logo}`}
-                alt={`Icon for ${tool.name}`}
-                className="h-10 w-10 object-contain"
-                loading="lazy" // Adds lazy loading
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = "/icons/default.png"; // Fallback icon
-                }}
-              />
-            </div>
-            
-            {/* Tool name below the logo */}
-            <span className="text-sm font-medium text-gray-300 mt-2">
-              {tool.name}
-            </span>
-          </div>
-        ))}
-      </div>
-      </AutoScroll>
-    </div>
-
-      {/* Bottom Container:  Projects */}
-      <div
-        className="row-span-2 col-span-2 bg-gray-700 p-4 bg-opacity-30 rounded-lg shadow-md overflow-y-hidden"
-        
-      >
-        <h3 className="text-xl font-bold mb-0 bg-opacity-70 text-white"> Projects</h3>
-        <HorizontalAutoScroll speed={50}>
-        <div className="flex flex-nowrap gap-4 justify-center md:justify-start">
-          {projects.map((project) => (
-            <div
-              key={project.id}
-              className="min-w-[300px] bg-gray-800 text-white rounded-lg shadow p-4"
-              style={{
-                padding: "15px",
-                borderRadius: "10px",
-                
+<div
+  className="row-span-4 col-span-1 lg:col-span-1 flex flex-col gap-6 bg-gray-700 bg-opacity-30 p-6 rounded-lg shadow-md overflow-y-auto"
+>
+  <h3 className="text-xl font-bold mb-4 text-white">Skills</h3>
+  <AutoScroll speed={30}>
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-4 gap-4">
+      {managementTools.map((tool, index) => (
+        <div
+          key={index}
+          className="flex flex-col items-center "
+        >
+          {/* Icon Container */}
+          <div
+            className="flex items-center justify-center bg-gray-900 bg-opacity-30 h-16 w-16 rounded-full shadow-md"
+          >
+            <img
+              src={tool.logo.startsWith("http") ? tool.logo : `/icons/${tool.logo}`}
+              alt={`Icon for ${tool.name}`}
+              className="h-10 w-10 object-contain"
+              loading="lazy"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = "/icons/default.png"; // Fallback to a default icon
               }}
-            >
-              <h4 className="text-lg font-bold mb-2">
-              <span style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{project.title}
-              </span>
-              </h4>
-              <p className="text-sm text-gray-300">
-              <span style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{project.description}
-              </span>
-              </p>
-              <p 
-              className="text-yellow-400 text-sm font-medium mb-2">   
-              <span style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>Tools: {project.tools.join(", ")}
-              </span>
-              </p>
-              <button
-                onClick={() => openModal(project)}
-                className="bg-blue-500 px-4 py-2 rounded-md font-bold"
-                style={{
-                  backgroundColor: "#1e90ff",
-                  padding: "6px 12px",
-                  fontSize: "0.8rem",
-                  borderRadius: "6px",
-                }}
-              >
-                View Details
-              </button>
-            </div>
-          ))}
+            />
+          </div>
+          {/* Skill Name */}
+          <span className="text-sm font-medium text-gray-300 mt-3 text-center">
+            {tool.name}
+          </span>
         </div>
-        </HorizontalAutoScroll>
+      ))}
+    </div>
+  </AutoScroll>
+</div>
+
+{/* Bottom Container: Projects */}
+<div
+  className="row-span-2 col-span-2 lg:col-span-2 bg-gray-700 p-4 bg-opacity-30 rounded-lg shadow-md overflow-y-auto"
+>
+  <h3 className="text-xl font-bold mb-4 bg-opacity-70 text-white">Projects</h3>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {projects.map((project) => (
+      <div
+        key={project.id}
+        className="bg-gray-800 text-white rounded-lg shadow p-3"
+        style={{
+          borderRadius: "10px",
+        }}
+      >
+        {/* Project Title */}
+        <h4 className="text-md font-bold mb-1">
+          <span
+            style={{
+              display: "block",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {project.title}
+          </span>
+        </h4>
+
+        {/* Project Description */}
+        <p className="text-sm text-gray-300 mb-2">
+          <span
+            style={{
+              display: "block",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {project.description}
+          </span>
+        </p>
+
+        {/* Tools Used */}
+        <p className="text-yellow-400 text-xs font-medium mb-3">
+          <span
+            style={{
+              display: "block",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+              Tools: {project.tools.join(", ")}
+          </span>
+        </p>
+
+        {/* View Details Button */}
+        <button
+          onClick={() => openModal(project)}
+          className="bg-blue-500 px-3 py-1 text-sm rounded-md font-semibold"
+          style={{
+            backgroundColor: "#1e90ff",
+          }}
+        >
+          View Details
+        </button>
       </div>
+    ))}
+  </div>
+</div>
 
       {/* Modal for Project Details */}
       {modalContent && (
@@ -764,7 +812,7 @@ export default function PortfolioLayout() {
  {/* Dynamic Heading */}
  <div className="flex items-center justify-center space-x-2">
   <p
-    className={`bg-yellow-500 px-2 py-1 w-15 rounded-md text-black text-center font-bold ${
+    className={`bg-sky-500 hover:bg-amber-500 px-2 py-1 w-15 rounded-md text-black text-center font-bold ${
       activeSection === "about"
         ? "About"
         : activeSection === "dataEngineering"
@@ -910,9 +958,9 @@ export default function PortfolioLayout() {
                 onClick={() => setActiveSection(key)}
                 className={`${
                   activeSection === key
-                    ? "text-yellow-500 border-b-2 border-yellow-500"
+                    ? "text-blue-500 border-b-2 border-yellow-500"
                     : "text-white"
-                } hover:text-yellow-400 font-bold text-lg`}
+                } hover:text-blue-400 font-bold text-lg`}
               >
                 {key
                   .replace(/([A-Z])/g, " $1")
