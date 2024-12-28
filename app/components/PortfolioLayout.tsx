@@ -3,7 +3,6 @@ import {useEffect, useRef, useState, Suspense } from "react";
 import StarCanvas from './starbackground';
 import AboutSQL from "./about";
 import AutoScroll from "./AutoScroll";
-import HorizontalAutoScroll from "./HorizontalAutoScroll";
 
 
 import {
@@ -244,114 +243,118 @@ This project showcased expertise in cloud-based data integration, pipeline desig
       setModalContent(null);
     };
     return (
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 bg-gray-900 bg-opacity-30 h-screen">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 bg-gray-900 bg-opacity-30 min-h-screen">
         {/* Left Container: Experience */}
-        <div className="bg-gray-700 row-span-3 lg:row-span-4 p-6 bg-opacity-30 rounded-lg shadow-md overflow-y-auto">
-          <h3 className="text-xl font-bold mb-4 text-white">Experience</h3>
-          <AutoScroll speed={30}>
-            <div className="space-y-6">
-              {Experience.map((project) => (
-                <div
-                  key={project.id}
-                  className="bg-gray-800 text-white rounded-lg bg-opacity-70 shadow p-6"
-                  style={{ borderRadius: "10px" }}
-                >
-                  <h4 className="text-lg font-bold mb-2">{project.title}</h4>
-                  <h4 className="text-sm text-gray-200 mb-4">{project.date}</h4>
-                  <p className="text-sm text-gray-300 mb-4">{project.description}</p>
-                  <p className="text-yellow-400 text-sm font-medium mb-4">
-                    Tools: {project.tools.join(", ")}
-                  </p>
-                  <button
-                    onClick={() => openModal(project)}
-                    className="bg-blue-500 px-4 py-2 rounded-md font-bold"
-                  >
-                    View Details
-                  </button>
-                </div>
-              ))}
-            </div>
-          </AutoScroll>
-        </div>
-    
-        {/* Right Container: Skills */}
-        <div className="bg-gray-700 row-span-3 lg:row-span-4 p-6 bg-opacity-30 rounded-lg shadow-md overflow-y-auto">
-          <h3 className="text-xl font-bold mb-4 text-white">Skills</h3>
-          <AutoScroll speed={30}>
-            <div className="flex flex-wrap gap-6">
-              {skills.map((category, index) => (
-                <div key={index} className="w-full">
-                  <h4 className="text-lg font-semibold text-gray-200 mb-3">
-                    {category.category}
-                  </h4>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {category.skills.map((skill, skillIndex) => (
-                      <div
-                        key={skillIndex}
-                        className="flex flex-col items-center justify-center text-center"
-                      >
-                        <div className="flex items-center justify-center bg-gray-800 bg-opacity-30 h-16 w-16 rounded-full shadow">
-                          <img
-                            src={
-                              skill.logo.startsWith("http")
-                                ? skill.logo
-                                : `/icons/${skill.logo}`
-                            }
-                            alt={`Icon for ${skill.name}`}
-                            className="h-10 w-10 object-contain"
-                            loading="lazy"
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.src = "/icons/default.png";
-                            }}
-                          />
-                        </div>
-                        <span className="text-sm font-medium text-gray-300 mt-2">
-                          {skill.name}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </AutoScroll>
-        </div>
-    
-        {/* Bottom Container: Projects */}
-        <div className="row-span-1 lg:row-span-2 col-span-1 lg:col-span-2 bg-gray-700 p-4 bg-opacity-30 rounded-lg shadow-md overflow-y-auto">
-        <h3 className="text-xl font-bold mb-4 text-white">Projects</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {Projects.map((project) => (
+        <div className="bg-gray-700 p-6 bg-opacity-30 rounded-lg shadow-md overflow-y-auto lg:h-[calc(50vh)] lg:w-[calc(55vh)]">
+          <h3 className="text-2xl font-bold mb-4">Experience</h3>
+          <AutoScroll>
+          <div className="space-y-6">
+            {Experience.map((project) => (
               <div
                 key={project.id}
-                className="bg-gray-800 text-white rounded-lg shadow-md p-6"
-                style={{ borderRadius: "10px" }}
+                className="bg-gray-800 text-white rounded-lg shadow p-6 hover:scale-105 transition transform duration-300"
               >
-                <h4 className="text-md font-bold mb-2">{project.title}</h4>
-                <p className="text-sm text-gray-300 mb-4">{project.description}</p>
-                <p className="text-yellow-400 text-sm font-medium mb-4">
+                <h4 className="text-lg font-bold mb-2">{project.title}</h4>
+                <p className="text-sm text-gray-400">{project.date}</p>
+                <p className="text-sm text-gray-300 my-2">{project.description}</p>
+                <p className="text-yellow-400 text-sm font-medium">
                   Tools: {project.tools.join(", ")}
                 </p>
                 <button
                   onClick={() => openModal(project)}
-                  className="bg-blue-500 px-3 py-1 text-sm rounded-md font-semibold"
+                  className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-bold transition duration-300"
                 >
                   View Details
                 </button>
               </div>
             ))}
           </div>
+          </AutoScroll>
+        </div>
+    
+        {/* Right Container: Projects */}
+        <div className="bg-gray-700 p-4 bg-opacity-30 rounded-lg shadow-md lg:h-[calc(50vh)] lg:w-[calc(55vh)] lg:overflow-y-auto lg:ml-auto">
+          <h3 className="text-2xl font-bold mb-4">Projects</h3>
+          <AutoScroll>
+          <div className="space-y-6">
+            {Projects.map((project) => (
+              <div
+                key={project.id}
+                className="bg-gray-800 text-white rounded-lg shadow p-6 hover:scale-105 transition transform duration-300"
+              >
+                <h4 className="text-lg font-bold">{project.title}</h4>
+                <p className="text-sm text-gray-300 my-2">{project.description}</p>
+                <p className="text-yellow-400 text-sm font-medium">
+                  Tools: {project.tools.join(", ")}
+                </p>
+                <button
+                  onClick={() => openModal(project)}
+                  className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-bold transition duration-300"
+                >
+                  View Details
+                </button>
+              </div>
+            ))}
+          </div>
+          </AutoScroll>
+        </div>
+    
+        {/* Bottom Container: Skills */}
+        <div className="lg:col-span-3 bg-gray-700 p-4 bg-opacity-30 rounded-lg shadow-md overflow-y-auto lg:mt-auto lg:h-[calc(40vh)]">
+          <h3 className="text-xl font-bold mb-4 text-white">Skills</h3>
+          <AutoScroll>
+          <div className="space-y-4">
+            {skills.map((category, index) => (
+              <div
+                key={index}
+                className="bg-gray-800 p-3 rounded-lg shadow hover:shadow-lg transition-transform transform hover:scale-105"
+              >
+                <h4 className="text-md font-semibold mb-3 text-white text-center">
+                  {category.category}
+                </h4>
+                <div className="flex flex-wrap gap-3 justify-start">
+                  {category.skills.map((skill, skillIndex) => (
+                    <div
+                      key={skillIndex}
+                      className="flex flex-col items-center text-center"
+                    >
+                      <div className="bg-gray-900 h-12 w-12 rounded-full flex items-center justify-center shadow-md">
+                        <img
+                          src={
+                            skill.logo.startsWith("http")
+                              ? skill.logo
+                              : `/icons/${skill.logo}`
+                          }
+                          alt={`Icon for ${skill.name}`}
+                          className="h-10 w-10 object-contain"
+                          loading="lazy"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = "/icons/default.png";
+                          }}
+                        />
+                      </div>
+                      <span className="text-sm font-medium text-gray-300 mt-2">
+                        {skill.name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+            
+          </div>
+          </AutoScroll>
         </div>
     
         {/* Modal for Project Details */}
         {modalContent && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+            className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
             onClick={closeModal}
           >
             <div
-              className="bg-gray-800 text-white p-6 rounded-lg shadow-lg w-[90%] md:w-[50%] max-w-4xl max-h-[90%] overflow-y-auto"
+              className="bg-gray-800 text-white p-6 rounded-lg shadow-lg max-w-4xl w-full max-h-[90%] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <h3 className="text-2xl font-bold mb-4">{modalContent.title}</h3>
@@ -370,9 +373,8 @@ This project showcased expertise in cloud-based data integration, pipeline desig
         )}
       </div>
     );
-  }    
-  
-  
+  }                      
+       
 function ProjectManagementProjects() {
   const [modalContent, setModalContent] = useState(null);
 
@@ -546,40 +548,50 @@ This role demonstrated expertise in supply chain automation, forecasting, and op
     setModalContent(null);
   };
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-screen p-4 bg-gray-900 bg-opacity-30">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 bg-gray-900 bg-opacity-30 lg:justify-center min-h-screen">
+      
       {/* Left Container: Experience */}
-      <div className="row-span-3 lg:row-span-4 bg-gray-700 p-6 bg-opacity-30 rounded-lg shadow-md overflow-y-auto">
+      <div className="bg-gray-700 p-6 bg-opacity-30 rounded-lg shadow-md overflow-y-auto lg:h-[calc(50vh)] lg:w-[calc(52vh)]">
         <h3 className="text-xl font-bold mb-4 text-white">Experience</h3>
+        <AutoScroll>
         <div className="space-y-6">
           {Experience.map((project) => (
             <div
               key={project.id}
-              className="bg-gray-800 text-white rounded-lg shadow-md p-4"
+              className="bg-gray-800 text-white rounded-lg shadow p-6 hover:scale-105 transition transform duration-300"
             >
               <h4 className="text-lg font-bold mb-2">{project.title}</h4>
-              <p className="text-sm text-gray-300 mb-2">{project.date}</p>
-              <p className="text-sm text-gray-300 mb-2">{project.description}</p>
-              <p className="text-yellow-400 text-sm font-medium mb-2">
+              <h4 className="text-sm text-gray-200 mb-4">{project.date}</h4>
+              <p className="text-sm text-gray-300 mb-4">{project.description}</p>
+              <p className="text-yellow-400 text-sm font-medium mb-4">
                 Tools: {project.tools.join(", ")}
               </p>
               <button
                 onClick={() => openModal(project)}
-                className="bg-blue-500 px-4 py-2 rounded-md font-bold text-sm"
+                className="bg-blue-500 px-4 py-2 rounded-md font-bold hover:bg-blue-600"
               >
                 View Details
               </button>
             </div>
           ))}
         </div>
+        </AutoScroll>
       </div>
   
       {/* Right Container: Skills */}
-      <div className="row-span-3 lg:row-span-4 bg-gray-700 p-6 bg-opacity-30 rounded-lg shadow-md overflow-y-auto">
+      <div className="bg-gray-700 p-6 bg-opacity-30 rounded-lg shadow-md lg:h-[calc(50vh)] lg:w-[calc(57vh)] lg:overflow-y-auto ">
         <h3 className="text-xl font-bold mb-4 text-white">Skills</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <AutoScroll>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-3">
           {managementTools.map((tool, index) => (
-            <div key={index} className="flex flex-col items-center">
-              <div className="flex items-center justify-center bg-gray-900 bg-opacity-30 h-16 w-16 rounded-full shadow-md">
+            <div
+              key={index}
+              className="bg-gray-800 text-white rounded-lg p-4 shadow-md hover:scale-105 transition transform duration-300"
+            >
+              <h4 className="text-lg text-center font-semibold text-gray-200 mb-3">
+                {tool.name}
+              </h4>
+              <div className="flex items-center justify-center bg-gray-900 h-14 w-14 rounded-full shadow mx-auto">
                 <img
                   src={tool.logo.startsWith("http") ? tool.logo : `/icons/${tool.logo}`}
                   alt={`Icon for ${tool.name}`}
@@ -591,83 +603,60 @@ This role demonstrated expertise in supply chain automation, forecasting, and op
                   }}
                 />
               </div>
-              <span className="text-sm font-medium text-gray-300 mt-3 text-center">
+              <span className="text-sm font-medium text-gray-300 mt-2 block text-center">
                 {tool.name}
               </span>
             </div>
           ))}
         </div>
+        </AutoScroll>
       </div>
   
       {/* Bottom Container: Projects */}
-      <div className="row-span-1 lg:row-span-2 col-span-1 lg:col-span-2 bg-gray-700 p-4 bg-opacity-30 rounded-lg shadow-md overflow-y-auto">
+      <div className="lg:col-span-3  bg-gray-700 p-4 bg-opacity-30 rounded-lg shadow-md overflow-y-auto lg:mt-auto lg:h-[calc(40vh)]">
         <h3 className="text-xl font-bold mb-4 text-white">Projects</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <AutoScroll>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project) => (
             <div
               key={project.id}
-              className="bg-gray-800 text-white rounded-lg shadow-md p-4"
+              className="bg-gray-800 text-white rounded-lg shadow-md p-4 hover:scale-105 transform transition duration-300"
             >
-              <h4 className="text-md font-bold mb-1">
-                <span
-                  style={{
-                    display: "block",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {project.title}
-                </span>
+              <h4 className="text-md font-bold mb-2 text-yellow-400">
+                {project.title}
               </h4>
-              <p className="text-sm text-gray-300 mb-2">
-                <span
-                  style={{
-                    display: "block",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {project.description}
-                </span>
-              </p>
+              <p className="text-sm text-gray-300 mb-2">{project.description}</p>
               <p className="text-yellow-400 text-xs font-medium mb-3">
-                <span
-                  style={{
-                    display: "block",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  Tools: {project.tools.join(", ")}
-                </span>
+                Tools: {project.tools.join(", ")}
               </p>
               <button
                 onClick={() => openModal(project)}
-                className="bg-blue-500 px-3 py-1 text-sm rounded-md font-semibold"
-                style={{
-                  backgroundColor: "#1e90ff",
-                }}
+                className="bg-blue-500 px-3 py-1 text-sm rounded-md font-semibold hover:bg-blue-600"
               >
                 View Details
               </button>
             </div>
           ))}
         </div>
+        </AutoScroll>
       </div>
   
       {/* Modal for Project Details */}
       {modalContent && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center"
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
           onClick={closeModal}
         >
           <div
             className="bg-gray-800 text-white p-6 rounded-lg shadow-lg w-[90%] md:w-[50%] max-w-4xl max-h-[90%] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
+            <button
+              onClick={closeModal}
+              className="absolute top-4 right-4 bg-red-500 text-white px-2 py-1 rounded-full hover:bg-red-600"
+            >
+              ✕
+            </button>
             <h3 className="text-2xl font-bold mb-4">{modalContent.title}</h3>
             <div className="text-gray-300 space-y-4">
               <p className="text-gray-400 italic mb-4">{modalContent.mainTitle}</p>
@@ -676,152 +665,168 @@ This role demonstrated expertise in supply chain automation, forecasting, and op
                 <p key={index}>{line.trim()}</p>
               ))}
               <p className="text-yellow-400">
-                <strong>Tools:</strong> {modalContent.tools}
+                <strong>Tools:</strong> {modalContent.tools.join(", ")}
               </p>
             </div>
           </div>
         </div>
       )}
     </div>
+    
   );
-}
+}  
 export default function PortfolioLayout() {
   const [activeSection, setActiveSection] = useState("about");
+
   return (
-    <div className="relative min-h-screen bg-gray-900 bg-opacity-90 text-white">
+    <div className="relative min-h-screen bg-gray-900 bg-opacity-90 scroll-smooth">
       {/* Starry Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <StarCanvas />
       </div>
 
       {/* Main Portfolio Content */}
-      <div className="relative z-10 flex flex-col lg:flex-row justify-center py-4 gap-6">
+      <div className="relative z-10 flex flex-col lg:flex-row justify-center py-6 gap-6">
         {/* Left Card */}
-<div className="w-full lg:w-1/4 bg-gradient-to-b from-gray-800 via-gray-700 to-gray-800 p-6 flex flex-col items-center gap-6 rounded-lg shadow-lg">
-  {/* Profile Section */}
-  <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-sky-500 shadow-lg">
-    <img
-      src="images/profile.jpg"
-      alt="M. Sai Manidhar"
-      className="object-cover w-full h-full"
-    />
-  </div>
+        <div className="w-full lg:w-1/4 bg-gradient-to-b from-gray-800 via-gray-700 to-gray-800 p-6 flex flex-col items-center gap-6 rounded-lg shadow-lg">
+          {/* Profile Section */}
+          <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-sky-500 shadow-lg">
+            <img
+              src="images/profile.jpg"
+              alt="M. Sai Manidhar"
+              className="object-cover w-full h-full"
+            />
+          </div>
 
-  {/* Name and Role */}
-  <div className="text-center">
-    <h1 className="text-2xl font-bold text-white">M. Sai Manidhar</h1>
-    <p className="text-sm text-sky-400 mt-1">
-      {activeSection === "about"
-        ? "About Me"
-        : activeSection === "dataEngineering"
-        ? "Data Engineer"
-        : activeSection === "projectManagement"
-        ? "Project Manager"
-        : ""}
-    </p>
-  </div>
+          {/* Name and Role */}
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-white">M. Sai Manidhar</h1>
+            <p className="text-sm text-sky-400 mt-1">
+              {activeSection === "about"
+                ? "About Me"
+                : activeSection === "dataEngineering"
+                ? "Data Engineer"
+                : activeSection === "projectManagement"
+                ? "Project Manager"
+                : ""}
+            </p>
+          </div>
 
-  {/* Resume Download Button */}
-  <div className="w-full flex justify-center">
-    <a
-      href={
-        activeSection === "about"
-          ? "/path-to-about-me-resume.pdf"
-          : activeSection === "dataEngineering"
-          ? "/path-to-data-engineering-resume.pdf"
-          : activeSection === "projectManagement"
-          ? "/path-to-project-management-resume.pdf"
-          : ""
-      }
-      download
-      className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-lg font-bold transition duration-300 shadow-md"
-    >
-      Download Resume
-    </a>
-  </div>
+          {/* Resume Download Button */}
+          <div className="w-full flex justify-center">
+            <a
+              href={
+                activeSection === "about"
+                  ? "/path-to-about-me-resume.pdf"
+                  : activeSection === "dataEngineering"
+                  ? "/path-to-data-engineering-resume.pdf"
+                  : activeSection === "projectManagement"
+                  ? "/path-to-project-management-resume.pdf"
+                  : ""
+              }
+              download
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-bold transition duration-300 shadow-md"
+            >
+              Download Resume
+            </a>
+          </div>
 
-  {/* Dynamic Description */}
-  <div className="text-sm text-gray-300 space-y-4">
-    {activeSection === "about" && (
-      <p className="text-center">
-        Experienced Data Engineer skilled in Big Data, cloud technologies, and workflow automation.
-      </p>
-    )}
-    {activeSection === "dataEngineering" && (
-      <p className="text-center">
-        Proficient in building scalable data pipelines, leveraging cloud platforms like Azure and AWS.
-      </p>
-    )}
-    {activeSection === "projectManagement" && (
-      <p className="text-center">
-        Experienced in cross-functional team management and delivering efficient project outcomes.
-      </p>
-    )}
-  </div>
+          {/* Dynamic Description */}
+          <div className="text-sm text-gray-300 space-y-4 text-center">
+            {activeSection === "about" && (
+              <p>
+                Experienced Data Engineer skilled in Big Data, cloud
+                technologies, and workflow automation.
+              </p>
+            )}
+            {activeSection === "dataEngineering" && (
+              <p>
+                Proficient in building scalable data pipelines, leveraging cloud
+                platforms like Azure and AWS.
+              </p>
+            )}
+            {activeSection === "projectManagement" && (
+              <p>
+                Experienced in cross-functional team management and delivering
+                efficient project outcomes.
+              </p>
+            )}
+          </div>
 
-  {/* Certifications */}
-  <div className="w-full">
-    <h3 className="text-lg font-semibold text-white mb-2">Certifications:</h3>
-    <ul className="list-disc list-inside text-gray-400 space-y-2">
-      <li>Databricks Data Engineer Associate</li>
-      <li>AWS Certified Solutions Architect</li>
-      <li>Power BI Certification by Microsoft</li>
-      <li>Certified ScrumMaster (CSM)</li>
-      <li>Certified Associate in Project Management (CAPM)</li>
-      <li>Google AI & ML Certificate</li>
-    </ul>
-  </div>
+          {/* Certifications */}
+          <div className="w-full">
+            <h3 className="text-lg font-semibold text-white mb-2">
+              Certifications:
+            </h3>
+            <ul className="list-disc list-inside text-white space-y-2">
+              <li>Databricks Data Engineer Associate</li>
+              <li>AWS Certified Solutions Architect</li>
+              <li>Power BI Certification by Microsoft</li>
+              <li>Certified ScrumMaster (CSM)</li>
+              <li>Certified Associate in Project Management (CAPM)</li>
+              <li>Google AI & ML Certificate</li>
+            </ul>
+          </div>
 
-  {/* Contact Information */}
-  <div className="w-full text-sm text-gray-300 space-y-3">
-    <div className="flex items-center gap-2">
-      <FaEnvelope className="text-yellow-500" />
-      <span>smanidhar14@gmail.com</span>
+          {/* Contact Information */}
+          <div className="w-full text-sm text-gray-300 space-y-3">
+            <div className="flex items-center gap-2">
+              <FaEnvelope className="text-yellow-500" />
+              <span>smanidhar14@gmail.com</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <FaPhone className="text-yellow-500" />
+              <span>+1 (970) 391-0949</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <FaMapMarkerAlt className="text-yellow-500" />
+              <span>Fort Collins, Colorado, USA</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Card */}
+        <div className="w-full lg:w-2/3 bg-gray-800 bg-opacity-75 p-6 rounded-lg shadow-lg flex flex-col gap-6">
+          {/* Sticky Navigation */}
+          <div className="bg-gray-700 bg-opacity-75 p-4 rounded-lg shadow-md sticky top-0 z-50">
+            <nav className="flex justify-center lg:justify-end gap-4 flex-wrap">
+              {Object.keys(sections).map((key) => (
+                <button
+                  key={key}
+                  onClick={() => setActiveSection(key)}
+                  className={`${
+                    activeSection === key
+                      ? "text-blue-500 border-b-2 border-yellow-500"
+                      : "text-white"
+                  } hover:text-blue-400 font-bold text-lg`}
+                >
+                  {key
+                    .replace(/([A-Z])/g, " $1")
+                    .replace(/^./, (str) => str.toUpperCase())}
+                </button>
+              ))}
+            </nav>
+          </div>
+
+          {/* Section Content */}
+          <div className="bg-gray-700 bg-opacity-75 p-6 rounded-lg shadow-md">
+            <h2 className="text-2xl font-bold mb-4 text-blue-400">
+              {activeSection === "about"
+                ? "About Me"
+                : activeSection === "dataEngineering"
+                ? "Data Engineering"
+                : activeSection === "projectManagement"
+                ? "Project Management"
+                : ""}
+            </h2>
+            <div className="text-gray-300 leading-relaxed">
+              {sections[activeSection]?.content || (
+                <p>Content not available.</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div className="flex items-center gap-2">
-      <FaPhone className="text-yellow-500" />
-      <span>+1 (970) 391-0949</span>
-    </div>
-    <div className="flex items-center gap-2">
-      <FaMapMarkerAlt className="text-yellow-500" />
-      <span>Fort Collins, Colorado, USA</span>
-    </div>
-  </div>
-</div>
-{/* Right Card */}
-<div className="w-full lg:w-2/3 bg-gray-800 bg-opacity-75 p-6 rounded-lg shadow-lg flex flex-col gap-6">
-  {/* Navigation */}
-  <div className="w-full bg-gray-700 bg-opacity-75 p-4 rounded-lg shadow-md">
-    <nav className="flex justify-center lg:justify-end gap-6 flex-wrap">
-      {Object.keys(sections).map((key) => (
-        <button
-          key={key}
-          onClick={() => setActiveSection(key)}
-          className={`${
-            activeSection === key
-              ? "text-blue-500 border-b-2 border-yellow-500"
-              : "text-white"
-          } hover:text-blue-400 font-bold text-lg`}
-        >
-          {key
-            .replace(/([A-Z])/g, " $1") // Add spaces before capital letters
-            .replace(/^./, (str) => str.toUpperCase())} {/* Capitalize the first letter */}
-        </button>
-      ))}
-    </nav>
-  </div>
-
-  {/* Active Section */}
-  <div className="bg-gray-700 bg-opacity-75 p-6 rounded-lg shadow-md">
-    <h2 className="text-2xl font-bold mb-4 text-blue-400">
-      {sections[activeSection].title}
-    </h2>
-    <div className="text-gray-300 leading-relaxed">
-      {sections[activeSection].content}
-    </div>
-  </div>
-</div>
-</div>
-</div>
-);
+  );
 }
