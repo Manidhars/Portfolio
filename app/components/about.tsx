@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
 import Typewriter from "typewriter-effect";
 
-const AboutSQL = () => {
+const AboutMe = () => {
   const [isMounted, setIsMounted] = useState(false); // State to ensure Typewriter only renders on the client
 
   useEffect(() => {
@@ -22,23 +22,14 @@ SELECT * FROM Developer WHERE passion = 'Building efficient data-driven solution
 `;
 
   return (
-    <div className="w-full max-w-4xl bg-gray-800 bg-opacity-30 p-6 flex flex-col items-center justify-center rounded-lg shadow-lg mx-auto">
+    <div className="w-full max-w-4xl bg-gray-800 bg-opacity-30 p-4 sm:p-6 flex flex-col items-center justify-center rounded-lg shadow-lg mx-auto">
       {/* Main Container */}
-      <div className="relative bg-gray-900 p-8 rounded-lg bg-opacity-40 shadow-lg w-full max-w-3xl">
+      <div className="relative bg-gray-900 p-6 rounded-lg bg-opacity-40 shadow-lg w-full max-w-3xl">
         {/* Colored Dots */}
         <div className="absolute top-2 left-2 flex gap-2">
-          <div
-            className="h-3 w-3 rounded-full bg-red-500"
-            title="Close"
-          ></div>
-          <div
-            className="h-3 w-3 rounded-full bg-yellow-500"
-            title="Minimize"
-          ></div>
-          <div
-            className="h-3 w-3 rounded-full bg-green-500"
-            title="Maximize"
-          ></div>
+          <div className="h-3 w-3 rounded-full bg-red-500" title="Close"></div>
+          <div className="h-3 w-3 rounded-full bg-yellow-500" title="Minimize"></div>
+          <div className="h-3 w-3 rounded-full bg-green-500" title="Maximize"></div>
         </div>
 
         {/* Static SQL Code */}
@@ -69,23 +60,23 @@ SELECT * FROM Developer WHERE passion = 'Building efficient data-driven solution
 
         {/* Dynamic SQL Code with Typewriter */}
         <div className="mt-4 text-green-300">
-          {isMounted && ( // Ensure Typewriter only runs on the client
+          {isMounted && (
             <Typewriter
               options={{
                 strings: [developerCodeDynamic],
                 autoStart: true,
                 loop: true,
-                delay: 70, // Typing speed for the last line
-                deleteSpeed: 50, // Speed for deleting text
+                delay: 70,
+                deleteSpeed: 50,
               }}
             />
           )}
         </div>
 
         {/* Social Links */}
-        <div className="flex items-center justify-center mt-6 gap-8 text-gray-400">
+        <div className="flex items-center justify-center mt-6 gap-6 text-gray-400">
           <a
-            href="www.linkedin.com/in/sai-manidhar-mamidi-366030172"
+            href="https://linkedin.com/in/sai-manidhar-mamidi-366030172"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-blue-500 transition"
@@ -118,4 +109,4 @@ SELECT * FROM Developer WHERE passion = 'Building efficient data-driven solution
   );
 };
 
-export default AboutSQL;
+export default AboutMe;

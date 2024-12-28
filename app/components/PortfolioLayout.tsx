@@ -243,188 +243,126 @@ This project showcased expertise in cloud-based data integration, pipeline desig
     const closeModal = () => {
       setModalContent(null);
     };
-  
     return (
-      <div className="grid grid-rows-6 grid-cols-2 gap-4 bg-opacity-30 h-screen p-4 bg-gray-900" style={{ height: "80vh" }}>
-  {/* Left Container: Experience */}
-        <div
-        
-          className="row-span-4 col-span-1 bg-gray-700 bg-opacity-30 p-6 rounded-lg shadow-md overflow-y-auto"
-          
-        >
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 bg-gray-900 bg-opacity-30 h-screen">
+        {/* Left Container: Experience */}
+        <div className="bg-gray-700 row-span-3 lg:row-span-4 p-6 bg-opacity-30 rounded-lg shadow-md overflow-y-auto">
           <h3 className="text-xl font-bold mb-4 text-white">Experience</h3>
           <AutoScroll speed={30}>
-          <div className="space-y-6">
-            {Experience.map((project) => (
+            <div className="space-y-6">
+              {Experience.map((project) => (
+                <div
+                  key={project.id}
+                  className="bg-gray-800 text-white rounded-lg bg-opacity-70 shadow p-6"
+                  style={{ borderRadius: "10px" }}
+                >
+                  <h4 className="text-lg font-bold mb-2">{project.title}</h4>
+                  <h4 className="text-sm text-gray-200 mb-4">{project.date}</h4>
+                  <p className="text-sm text-gray-300 mb-4">{project.description}</p>
+                  <p className="text-yellow-400 text-sm font-medium mb-4">
+                    Tools: {project.tools.join(", ")}
+                  </p>
+                  <button
+                    onClick={() => openModal(project)}
+                    className="bg-blue-500 px-4 py-2 rounded-md font-bold"
+                  >
+                    View Details
+                  </button>
+                </div>
+              ))}
+            </div>
+          </AutoScroll>
+        </div>
+    
+        {/* Right Container: Skills */}
+        <div className="bg-gray-700 row-span-3 lg:row-span-4 p-6 bg-opacity-30 rounded-lg shadow-md overflow-y-auto">
+          <h3 className="text-xl font-bold mb-4 text-white">Skills</h3>
+          <AutoScroll speed={30}>
+            <div className="flex flex-wrap gap-6">
+              {skills.map((category, index) => (
+                <div key={index} className="w-full">
+                  <h4 className="text-lg font-semibold text-gray-200 mb-3">
+                    {category.category}
+                  </h4>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {category.skills.map((skill, skillIndex) => (
+                      <div
+                        key={skillIndex}
+                        className="flex flex-col items-center justify-center text-center"
+                      >
+                        <div className="flex items-center justify-center bg-gray-800 bg-opacity-30 h-16 w-16 rounded-full shadow">
+                          <img
+                            src={
+                              skill.logo.startsWith("http")
+                                ? skill.logo
+                                : `/icons/${skill.logo}`
+                            }
+                            alt={`Icon for ${skill.name}`}
+                            className="h-10 w-10 object-contain"
+                            loading="lazy"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.src = "/icons/default.png";
+                            }}
+                          />
+                        </div>
+                        <span className="text-sm font-medium text-gray-300 mt-2">
+                          {skill.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </AutoScroll>
+        </div>
+    
+        {/* Bottom Container: Projects */}
+        <div className="row-span-1 lg:row-span-2 col-span-1 lg:col-span-2 bg-gray-700 p-4 bg-opacity-30 rounded-lg shadow-md overflow-y-auto">
+        <h3 className="text-xl font-bold mb-4 text-white">Projects</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {Projects.map((project) => (
               <div
                 key={project.id}
-                className="bg-gray-800 text-white rounded-lg bg-opacity-70 shadow p-6"
-                style={{
-                  borderRadius: "10px",
-                  padding: "15px",
-                  
-                }}
+                className="bg-gray-800 text-white rounded-lg shadow-md p-6"
+                style={{ borderRadius: "10px" }}
               >
-                <h4 className="text-lg font-bold mb-2">{project.title}</h4>
-                <h4 className="text-sm text-gray-200 mb-4">{project.date}</h4>
+                <h4 className="text-md font-bold mb-2">{project.title}</h4>
                 <p className="text-sm text-gray-300 mb-4">{project.description}</p>
                 <p className="text-yellow-400 text-sm font-medium mb-4">
                   Tools: {project.tools.join(", ")}
                 </p>
                 <button
                   onClick={() => openModal(project)}
-                  className="bg-blue-500 px-4 py-2 rounded-md font-bold"
-                  style={{
-                    backgroundColor: "#1e90ff",
-                    padding: "8px 16px",
-                    borderRadius: "8px",
-                  }}
+                  className="bg-blue-500 px-3 py-1 text-sm rounded-md font-semibold"
                 >
                   View Details
                 </button>
               </div>
             ))}
           </div>
-          </AutoScroll>
         </div>
-        {/* Right Container: Skills */}
-<div
-  className="row-span-4 col-span-1 lg:col-span-1 bg-gray-700 bg-opacity-30 p-6 rounded-lg shadow-md overflow-y-auto"
->
-  <h3 className="text-xl font-bold mb-4 bg-opacity-70 text-white">Skills</h3>
-  <AutoScroll speed={30}>
-    <div className="flex flex-wrap gap-4">
-      {skills.map((category, index) => (
-        <div key={index} className="w-full">
-          {/* Category Title */}
-          <h4 className="text-lg font-semibold text-gray-200 mb-3">
-            {category.category}
-          </h4>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {category.skills.map((skill, skillIndex) => (
-              <div
-                key={skillIndex}
-                className="flex flex-col items-center justify-center text-center"
-              >
-                {/* Skill Icon */}
-                <div
-                  className="flex items-center justify-center bg-gray-800 bg-opacity-30 h-16 w-16 rounded-full shadow"
-                
-                >
-                  <img
-                    src={skill.logo.startsWith("http") ? skill.logo : `/icons/${skill.logo}`}
-                    alt={`Icon for ${skill.name}`}
-                    className="h-10 w-10 object-contain"
-                    loading="lazy"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = "/icons/default.png"; // Fallback
-                    }}
-                  />
-                </div>
-                {/* Skill Name */}
-                <span className="text-sm font-medium text-gray-300 mt-2">
-                  {skill.name}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  </AutoScroll>
-</div>
-
-{/* Bottom Container: Projects */}
-<div
-  className="row-span-2 col-span-2 lg:col-span-2 bg-gray-700 p-4 bg-opacity-30 rounded-lg shadow-md overflow-y-auto"
->
-  <h3 className="text-xl font-bold mb-4 bg-opacity-70 text-white">Projects</h3>
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    {Projects.map((project) => (
-      <div
-        key={project.id}
-        className="bg-gray-800 text-white rounded-lg shadow p-3"
-        style={{
-          borderRadius: "10px",
-        }}
-      >
-        {/* Project Title */}
-        <h4 className="text-md font-bold mb-1">
-          <span
-            style={{
-              display: "block",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {project.title}
-          </span>
-        </h4>
-
-        {/* Project Description */}
-        <p className="text-sm text-gray-300 mb-2">
-          <span
-            style={{
-              display: "block",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {project.description}
-          </span>
-        </p>
-
-        {/* Tools Used */}
-        <p className="text-yellow-400 text-xs font-medium mb-3">
-          <span
-            style={{
-              display: "block",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-          >
-              Tools: {project.tools.join(", ")}
-          </span>
-        </p>
-
-        {/* View Details Button */}
-        <button
-          onClick={() => openModal(project)}
-          className="bg-blue-500 px-3 py-1 text-sm rounded-md font-semibold"
-          style={{
-            backgroundColor: "#1e90ff",
-          }}
-        >
-          View Details
-        </button>
-      </div>
-    ))}
-  </div>
-</div>
-      {/* Modal for Project Details */}
+    
+        {/* Modal for Project Details */}
         {modalContent && (
           <div
             className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
             onClick={closeModal}
           >
             <div
-              className="bg-gray-800 text-white p-6 rounded-lg shadow-lg w-[50%] max-w-4xl max-h-[50%] overflow-y-auto"
+              className="bg-gray-800 text-white p-6 rounded-lg shadow-lg w-[90%] md:w-[50%] max-w-4xl max-h-[90%] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              
               <h3 className="text-2xl font-bold mb-4">{modalContent.title}</h3>
               <div className="text-gray-300 space-y-4">
-              <p className="text-gray-400 italic mb-4">{modalContent.mainTitle}</p>
-              <h4 className="text-yellow-400 text-sm mb-2">{modalContent.date}</h4>
+                <p className="text-gray-400 italic mb-4">{modalContent.mainTitle}</p>
+                <h4 className="text-yellow-400 text-sm mb-2">{modalContent.date}</h4>
                 {modalContent.details.split("\n").map((line, index) => (
                   <p key={index}>{line.trim()}</p>
                 ))}
                 <p className="text-yellow-400">
-                  <strong>Tools:</strong>{modalContent.tools.join(", ")}
+                  <strong>Tools:</strong> {modalContent.tools.join(", ")}
                 </p>
               </div>
             </div>
@@ -432,7 +370,7 @@ This project showcased expertise in cloud-based data integration, pipeline desig
         )}
       </div>
     );
-  }
+  }    
   
   
 function ProjectManagementProjects() {
@@ -607,37 +545,110 @@ This role demonstrated expertise in supply chain automation, forecasting, and op
   const closeModal = () => {
     setModalContent(null);
   };
-
   return (
-    <div className="grid grid-rows-6 grid-cols-2 bg-opacity-30 gap-4 h-screen p-4 bg-gray-900" style={{ height: "80vh" }}>
-    {/* Left Container: Projects */}
-    <div
-      className="row-span-4 col-span-1 bg-gray-700 p-6 bg-opacity-30 rounded-lg shadow-md overflow-y-auto"
-      
-
-      >
-        <h3 className="text-xl font-bold mb-4 bg-opacity-30 text-white">Experience</h3>
-        <AutoScroll speed={30}>
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-screen p-4 bg-gray-900 bg-opacity-30">
+      {/* Left Container: Experience */}
+      <div className="row-span-3 lg:row-span-4 bg-gray-700 p-6 bg-opacity-30 rounded-lg shadow-md overflow-y-auto">
+        <h3 className="text-xl font-bold mb-4 text-white">Experience</h3>
         <div className="space-y-6">
           {Experience.map((project) => (
             <div
               key={project.id}
-              className="bg-gray-800 text-white rounded-lg shadow p-6"
-              style={{ padding: "15px", borderRadius: "10px" }}
+              className="bg-gray-800 text-white rounded-lg shadow-md p-4"
             >
               <h4 className="text-lg font-bold mb-2">{project.title}</h4>
-              <p className="text-sm text-gray-300 mb-4">{project.date}</p>
-              <p className="text-sm text-gray-300 mb-4">{project.description}</p>
-              <p className="text-yellow-400 text-sm font-medium mb-4">
+              <p className="text-sm text-gray-300 mb-2">{project.date}</p>
+              <p className="text-sm text-gray-300 mb-2">{project.description}</p>
+              <p className="text-yellow-400 text-sm font-medium mb-2">
                 Tools: {project.tools.join(", ")}
               </p>
               <button
                 onClick={() => openModal(project)}
-                className="bg-blue-500 px-4 py-2 rounded-md font-bold"
+                className="bg-blue-500 px-4 py-2 rounded-md font-bold text-sm"
+              >
+                View Details
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+  
+      {/* Right Container: Skills */}
+      <div className="row-span-3 lg:row-span-4 bg-gray-700 p-6 bg-opacity-30 rounded-lg shadow-md overflow-y-auto">
+        <h3 className="text-xl font-bold mb-4 text-white">Skills</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {managementTools.map((tool, index) => (
+            <div key={index} className="flex flex-col items-center">
+              <div className="flex items-center justify-center bg-gray-900 bg-opacity-30 h-16 w-16 rounded-full shadow-md">
+                <img
+                  src={tool.logo.startsWith("http") ? tool.logo : `/icons/${tool.logo}`}
+                  alt={`Icon for ${tool.name}`}
+                  className="h-10 w-10 object-contain"
+                  loading="lazy"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "/icons/default.png";
+                  }}
+                />
+              </div>
+              <span className="text-sm font-medium text-gray-300 mt-3 text-center">
+                {tool.name}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+  
+      {/* Bottom Container: Projects */}
+      <div className="row-span-1 lg:row-span-2 col-span-1 lg:col-span-2 bg-gray-700 p-4 bg-opacity-30 rounded-lg shadow-md overflow-y-auto">
+        <h3 className="text-xl font-bold mb-4 text-white">Projects</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {projects.map((project) => (
+            <div
+              key={project.id}
+              className="bg-gray-800 text-white rounded-lg shadow-md p-4"
+            >
+              <h4 className="text-md font-bold mb-1">
+                <span
+                  style={{
+                    display: "block",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {project.title}
+                </span>
+              </h4>
+              <p className="text-sm text-gray-300 mb-2">
+                <span
+                  style={{
+                    display: "block",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {project.description}
+                </span>
+              </p>
+              <p className="text-yellow-400 text-xs font-medium mb-3">
+                <span
+                  style={{
+                    display: "block",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Tools: {project.tools.join(", ")}
+                </span>
+              </p>
+              <button
+                onClick={() => openModal(project)}
+                className="bg-blue-500 px-3 py-1 text-sm rounded-md font-semibold"
                 style={{
                   backgroundColor: "#1e90ff",
-                  padding: "8px 16px",
-                  borderRadius: "8px",
                 }}
               >
                 View Details
@@ -645,116 +656,8 @@ This role demonstrated expertise in supply chain automation, forecasting, and op
             </div>
           ))}
         </div>
-        </AutoScroll>
       </div>
-      {/* Right Container: Skills */}
-<div
-  className="row-span-4 col-span-1 lg:col-span-1 flex flex-col gap-6 bg-gray-700 bg-opacity-30 p-6 rounded-lg shadow-md overflow-y-auto"
->
-  <h3 className="text-xl font-bold mb-4 text-white">Skills</h3>
-  <AutoScroll speed={30}>
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-4 gap-4">
-      {managementTools.map((tool, index) => (
-        <div
-          key={index}
-          className="flex flex-col items-center "
-        >
-          {/* Icon Container */}
-          <div
-            className="flex items-center justify-center bg-gray-900 bg-opacity-30 h-16 w-16 rounded-full shadow-md"
-          >
-            <img
-              src={tool.logo.startsWith("http") ? tool.logo : `/icons/${tool.logo}`}
-              alt={`Icon for ${tool.name}`}
-              className="h-10 w-10 object-contain"
-              loading="lazy"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = "/icons/default.png"; // Fallback to a default icon
-              }}
-            />
-          </div>
-          {/* Skill Name */}
-          <span className="text-sm font-medium text-gray-300 mt-3 text-center">
-            {tool.name}
-          </span>
-        </div>
-      ))}
-    </div>
-  </AutoScroll>
-</div>
-
-{/* Bottom Container: Projects */}
-<div
-  className="row-span-2 col-span-2 lg:col-span-2 bg-gray-700 p-4 bg-opacity-30 rounded-lg shadow-md overflow-y-auto"
->
-  <h3 className="text-xl font-bold mb-4 bg-opacity-70 text-white">Projects</h3>
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    {projects.map((project) => (
-      <div
-        key={project.id}
-        className="bg-gray-800 text-white rounded-lg shadow p-3"
-        style={{
-          borderRadius: "10px",
-        }}
-      >
-        {/* Project Title */}
-        <h4 className="text-md font-bold mb-1">
-          <span
-            style={{
-              display: "block",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {project.title}
-          </span>
-        </h4>
-
-        {/* Project Description */}
-        <p className="text-sm text-gray-300 mb-2">
-          <span
-            style={{
-              display: "block",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {project.description}
-          </span>
-        </p>
-
-        {/* Tools Used */}
-        <p className="text-yellow-400 text-xs font-medium mb-3">
-          <span
-            style={{
-              display: "block",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-          >
-              Tools: {project.tools.join(", ")}
-          </span>
-        </p>
-
-        {/* View Details Button */}
-        <button
-          onClick={() => openModal(project)}
-          className="bg-blue-500 px-3 py-1 text-sm rounded-md font-semibold"
-          style={{
-            backgroundColor: "#1e90ff",
-          }}
-        >
-          View Details
-        </button>
-      </div>
-    ))}
-  </div>
-</div>
-
+  
       {/* Modal for Project Details */}
       {modalContent && (
         <div
@@ -762,18 +665,18 @@ This role demonstrated expertise in supply chain automation, forecasting, and op
           onClick={closeModal}
         >
           <div
-            className="bg-gray-800 text-white p-6 rounded-lg shadow-lg w-[50%] max-w-4xl max-h-[50%] overflow-y-auto"
+            className="bg-gray-800 text-white p-6 rounded-lg shadow-lg w-[90%] md:w-[50%] max-w-4xl max-h-[90%] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="text-2xl font-bold mb-4">{modalContent.title}</h3>
             <div className="text-gray-300 space-y-4">
-            <p className="text-gray-400 italic mb-4">{modalContent.mainTitle}</p>
+              <p className="text-gray-400 italic mb-4">{modalContent.mainTitle}</p>
               <h4 className="text-yellow-400 text-sm mb-2">{modalContent.date}</h4>
               {modalContent.details.split("\n").map((line, index) => (
                 <p key={index}>{line.trim()}</p>
               ))}
               <p className="text-yellow-400">
-                <strong>Tools:</strong> 
+                <strong>Tools:</strong> {modalContent.tools}
               </p>
             </div>
           </div>
@@ -782,9 +685,6 @@ This role demonstrated expertise in supply chain automation, forecasting, and op
     </div>
   );
 }
- 
-        
-
 export default function PortfolioLayout() {
   const [activeSection, setActiveSection] = useState("about");
   return (
@@ -797,141 +697,83 @@ export default function PortfolioLayout() {
       {/* Main Portfolio Content */}
       <div className="relative z-10 flex flex-col lg:flex-row justify-center py-4 gap-6">
         {/* Left Card */}
-        <div className="w-full lg:w-1/4 bg-gray-800 bg-opacity-80 p-6 flex flex-col items-center gap-4 rounded-lg shadow-lg ">
-          <div className="w-32 h-32 rounded-full bg-gray-700 bg-opacity-75 flex items-center justify-center">
-  
-            <img
-              src="images/profile.jpg"
-              alt="Profile image of M. Sai Manidhar"
-              className="w-32 h-32 rounded-full object-cover"
-            />
-          </div>
-  <h1 className="text- lg font-bold mt-2 text-center">M. Sai Manidhar</h1>
+<div className="w-full lg:w-1/4 bg-gradient-to-b from-gray-800 via-gray-700 to-gray-800 p-6 flex flex-col items-center gap-6 rounded-lg shadow-lg">
+  {/* Profile Section */}
+  <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-sky-500 shadow-lg">
+    <img
+      src="images/profile.jpg"
+      alt="M. Sai Manidhar"
+      className="object-cover w-full h-full"
+    />
+  </div>
 
- <div>
- {/* Dynamic Heading */}
- <div className="flex items-center justify-center space-x-2">
-  <p
-    className={`bg-sky-500 hover:bg-amber-500 px-2 py-1 w-15 rounded-md text-black text-center font-bold ${
-      activeSection === "about"
-        ? "About"
+  {/* Name and Role */}
+  <div className="text-center">
+    <h1 className="text-2xl font-bold text-white">M. Sai Manidhar</h1>
+    <p className="text-sm text-sky-400 mt-1">
+      {activeSection === "about"
+        ? "About Me"
         : activeSection === "dataEngineering"
-        ? "Data Engineering"
+        ? "Data Engineer"
         : activeSection === "projectManagement"
-        ? "Project Management"
-        
-        : ""
-    }`}
-  >
-    {activeSection === "about"
-      ? "About Me"
-      : activeSection === "dataEngineering"
-      ? "Data Engineer"
-      : activeSection === "projectManagement"
-      ? "Project Manager"
-      : 
-       ""}
-  </p>
-  <a
-    href={
-      activeSection === "about"
-        ? "/path-to-about-me-resume.pdf"
-        : activeSection === "dataEngineering"
-        ? "/path-to-data-engineering-resume.pdf"
-        : activeSection === "projectManagement"
-        ? "/path-to-project-management-resume.pdf"
-        
-        : ""
-    }
-    download
-    className="text-black-500 hover:text-blue-600 transition duration-300"
-    title="Download Resume"
-  >
-    <FaDownload className="text-lg" />
-  </a>
-</div>
-  
-    {/* Dynamic Description */}
-    <h2 className="mt-2 text-sm text-center" style={{ textAlign: "justify" }}>
-  {activeSection === "about" && (
-    <>
-      <p>
-        Experienced Data Engineer and Analyst skilled in Python, Big Data, and cloud technologies (AWS, Azure). Proficient in building data pipelines, applying machine learning, and delivering insights through advanced visualization tools. Adept at workflow automation and ensuring data reliability.
+        ? "Project Manager"
+        : ""}
+    </p>
+  </div>
+
+  {/* Resume Download Button */}
+  <div className="w-full flex justify-center">
+    <a
+      href={
+        activeSection === "about"
+          ? "/path-to-about-me-resume.pdf"
+          : activeSection === "dataEngineering"
+          ? "/path-to-data-engineering-resume.pdf"
+          : activeSection === "projectManagement"
+          ? "/path-to-project-management-resume.pdf"
+          : ""
+      }
+      download
+      className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-lg font-bold transition duration-300 shadow-md"
+    >
+      Download Resume
+    </a>
+  </div>
+
+  {/* Dynamic Description */}
+  <div className="text-sm text-gray-300 space-y-4">
+    {activeSection === "about" && (
+      <p className="text-center">
+        Experienced Data Engineer skilled in Big Data, cloud technologies, and workflow automation.
       </p>
-      <p className="mt-2 text-sm font-bold">Certifications:</p>
-      <ul className="list-disc list-outside text-left mt-2"
-      style={{
-        lineHeight: "1.8", // Spacing between list items
-      }}>
-        <li>Power BI Certification by Microsoft </li>
-        <li>AWS Certified Solutions Architect</li>
-        <li>Certified ScrumMaster (CSM) by Scrum Alliance </li>
-        <li>Certified Associate in Project Management (CAPM)</li>
-        <li>Adobe Analytics Business Practitioner Professional </li>
-        <li>Databricks Data Engineer Associate</li>
-        <li>Goole AI & ML machine learning Certificate</li>
-      </ul>
-    </>
-  )}
-  {activeSection === "dataEngineering" && (
-    <>
-      <p>
-        Proficient in creating robust data pipelines, handling Big Data platforms (Databricks, Spark), and delivering analytics using cloud tools such as Azure and AWS. Skilled in ensuring data accuracy and automation for enterprise systems.
+    )}
+    {activeSection === "dataEngineering" && (
+      <p className="text-center">
+        Proficient in building scalable data pipelines, leveraging cloud platforms like Azure and AWS.
       </p>
-      <p className="mt-4 text-sm font-bold">Certifications:</p>
-      <ul className="list-disc list-outside text-left mt-2"
-  style={{
-    lineHeight: "1.8", // Spacing between list items
-  }}
->
-  <li className="leading-relaxed">
-    Databricks Data Engineer Associate
-  </li>
-  <li className="leading-relaxed">
-    Adobe Analytics Business Practitioner Professional
-  </li>
-  <li className="leading-relaxed">
-    Power BI Certification by Microsoft
-  </li>
-  <li className="leading-relaxed">
-    AWS Certified Solutions Architect
-  </li>
-  <li className="leading-relaxed">
-    Certified ScrumMaster (CSM) by Scrum Alliance
-  </li>
-  <li className="leading-relaxed">
-    Certified Associate in Project Management (CAPM)
-  </li>
-  <li className="leading-relaxed">
-    Google AI & ML Machine Learning Certificate
-  </li>
-      </ul>
-    </>
-  )}
-  {activeSection === "projectManagement" && (
-    <>
-      <p>
-        Experienced in managing cross-functional teams, optimizing supply chains, and delivering projects using tools like MS Project and SAP ERP. Adept at strategy, risk management, and operational planning.
+    )}
+    {activeSection === "projectManagement" && (
+      <p className="text-center">
+        Experienced in cross-functional team management and delivering efficient project outcomes.
       </p>
-      <p className="mt-4 font-bold">Certifications:</p>
-      <ul className="list-disc list-outside text-left mt-2"
-      style={{
-        lineHeight: "1.8", // Spacing between list items
-      }}>
+    )}
+  </div>
+
+  {/* Certifications */}
+  <div className="w-full">
+    <h3 className="text-lg font-semibold text-white mb-2">Certifications:</h3>
+    <ul className="list-disc list-inside text-gray-400 space-y-2">
+      <li>Databricks Data Engineer Associate</li>
+      <li>AWS Certified Solutions Architect</li>
+      <li>Power BI Certification by Microsoft</li>
+      <li>Certified ScrumMaster (CSM)</li>
       <li>Certified Associate in Project Management (CAPM)</li>
-      <li>Certified ScrumMaster (CSM) by Scrum Alliance </li>
-      <li>Power BI Certification by Microsoft </li>
-        <li>AWS Certified Solutions Architect</li>     
-        <li>Adobe Analytics Business Practitioner Professional </li>
-        <li>Databricks Data Engineer Associate</li>
-        <li>Goole AI & ML machine learning Certificate</li>
-      </ul>
-    </>
-  )}
+      <li>Google AI & ML Certificate</li>
+    </ul>
+  </div>
 
-</h2>  
-</div>
-  <div className="w-full mt-6 text-sm space-y-4">
+  {/* Contact Information */}
+  <div className="w-full text-sm text-gray-300 space-y-3">
     <div className="flex items-center gap-2">
       <FaEnvelope className="text-yellow-500" />
       <span>smanidhar14@gmail.com</span>
@@ -946,38 +788,40 @@ export default function PortfolioLayout() {
     </div>
   </div>
 </div>
+{/* Right Card */}
+<div className="w-full lg:w-2/3 bg-gray-800 bg-opacity-75 p-6 rounded-lg shadow-lg flex flex-col gap-6">
+  {/* Navigation */}
+  <div className="w-full bg-gray-700 bg-opacity-75 p-4 rounded-lg shadow-md">
+    <nav className="flex justify-center lg:justify-end gap-6 flex-wrap">
+      {Object.keys(sections).map((key) => (
+        <button
+          key={key}
+          onClick={() => setActiveSection(key)}
+          className={`${
+            activeSection === key
+              ? "text-blue-500 border-b-2 border-yellow-500"
+              : "text-white"
+          } hover:text-blue-400 font-bold text-lg`}
+        >
+          {key
+            .replace(/([A-Z])/g, " $1") // Add spaces before capital letters
+            .replace(/^./, (str) => str.toUpperCase())} {/* Capitalize the first letter */}
+        </button>
+      ))}
+    </nav>
+  </div>
 
-
-      {/* Right Card */}
-      <div className="w-full lg:w-2/3 bg-gray-800 bg-opacity-80 p-6 rounded-lg shadow-lg">
-  <div className="bg-gray-700 bg-opacity-75 p-4 rounded-lg shadow-md mb-6">
-          <nav className="flex justify-center lg:justify-end gap-6 flex-wrap">
-            {Object.keys(sections).map((key) => (
-              <button
-                key={key}
-                onClick={() => setActiveSection(key)}
-                className={`${
-                  activeSection === key
-                    ? "text-blue-500 border-b-2 border-yellow-500"
-                    : "text-white"
-                } hover:text-blue-400 font-bold text-lg`}
-              >
-                {key
-                  .replace(/([A-Z])/g, " $1")
-                  .replace(/^./, (str) => str.toUpperCase())}
-              </button>
-            ))}
-          </nav>
-        </div>
-
-        <section>
-          <h2 className="text-2xl font-bold mb-4">
-            {sections[activeSection].title}
-          </h2>
-          {sections[activeSection].content}
-        </section>
-      </div>
+  {/* Active Section */}
+  <div className="bg-gray-700 bg-opacity-75 p-6 rounded-lg shadow-md">
+    <h2 className="text-2xl font-bold mb-4 text-blue-400">
+      {sections[activeSection].title}
+    </h2>
+    <div className="text-gray-300 leading-relaxed">
+      {sections[activeSection].content}
     </div>
-    </div>
-  );
+  </div>
+</div>
+</div>
+</div>
+);
 }
